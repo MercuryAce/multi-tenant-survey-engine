@@ -1,0 +1,7 @@
+.git
+legacy
+vendor
+tmp
+logs
+docs
+*.md

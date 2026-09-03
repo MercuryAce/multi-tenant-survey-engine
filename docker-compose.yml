@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8765:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      DEBUG: "true"
+      APP_NAME: "Engagement Platform"
+      APP_FULL_BASE_URL: "http://localhost:8765"
+      SECURITY_SALT: "7cb69a468fe172dedd64bdd5fa9e4f6b8e834a7080aca6441c2819f1c5858267"
+      DATABASE_URL: "mysql://app:app@db:3306/engagement?encoding=utf8mb4"
+      DATABASE_TEST_URL: "mysql://app:app@db:3306/engagement_test?encoding=utf8mb4"
+      # Defaults to debug transport for safety; set to e.g. smtp://... to send real emails.
+      EMAIL_TRANSPORT_DEFAULT_URL: ${EMAIL_TRANSPORT_DEFAULT_URL:-debug://}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: engagement
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uapp", "-papp"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+volumes:
+  mysql_data:

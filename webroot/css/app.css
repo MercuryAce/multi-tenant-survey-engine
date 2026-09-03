@@ -1,0 +1,74 @@
+:root {
+    --brand: #1f4e79;
+    --sidebar: #15263b;
+    --bg: #f4f6f9;
+}
+html, body { height: 100%; }
+.app-body { display: flex; min-height: 100vh; background: var(--bg); margin: 0; }
+.sidebar {
+    width: 240px;
+    background: var(--sidebar);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 0;
+    flex-shrink: 0;
+}
+.sidebar .brand { font-weight: 700; padding: 0 1.25rem 1.25rem; font-size: 1.05rem; }
+.sidebar .brand img { max-height: 32px; margin-right: .5rem; }
+.sidebar .nav-link { color: rgba(255,255,255,.8); padding: .5rem 1.25rem; }
+.sidebar .nav-link:hover { color: #fff; background: rgba(255,255,255,.08); }
+.sidebar-footer { margin-top: auto; padding: 1.25rem; }
+.main-content { flex: 1; padding: 1.75rem 2rem; min-width: 0; }
+.main-content.full { padding: 0; }
+.login-body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(160deg, #15263b, var(--brand));
+}
+.login-card { width: min(420px, 92vw); padding: 2rem; }
+.page-title { margin-bottom: 1.25rem; }
+.stat-card { border: 0; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.btn-brand, .btn-primary { background: var(--brand); border-color: var(--brand); }
+.table thead th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: #5b6573; }
+.survey-shell { max-width: 720px; margin: 2rem auto; }
+.survey-body { min-height: 100vh; background: #eef2f6; margin: 0; }
+.survey-topbar { background: var(--brand); color: #fff; padding: .9rem 0; }
+.survey-wrap { max-width: 760px; }
+.survey-panel { padding: 2rem; }
+.survey-progress { margin-bottom: 1.5rem; }
+.survey-progress .progress { height: .45rem; }
+.survey-progress .progress-bar { background: var(--brand); }
+.scale-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    gap: .6rem;
+}
+.scale-grid-wide { grid-template-columns: repeat(auto-fit, minmax(52px, 1fr)); }
+.scale-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 72px;
+    border: 1px solid #d5dbe3;
+    border-radius: .5rem;
+    background: #fff;
+    cursor: pointer;
+    padding: .4rem;
+    text-align: center;
+}
+.scale-option .scale-value { font-weight: 700; font-size: 1.15rem; }
+.scale-option .scale-label { font-size: .75rem; color: #5b6573; }
+.btn-check:checked + .scale-option {
+    border-color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 12%, #fff);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand) 35%, transparent);
+}
+.chart-card canvas { max-height: 280px; }
+@media (max-width: 768px) {
+    .app-body { flex-direction: column; }
+    .sidebar { width: 100%; }
+    .sidebar .nav { flex-direction: row; flex-wrap: wrap; }
+}
